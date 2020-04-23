@@ -12,18 +12,18 @@ import com.bmdb.business.JsonResponse;
 import com.bmdb.db.MovieGenreRepository;
 
 @RestController
-@RequestMapping("/moviegenres")
+@RequestMapping("/movieGenres")
 
 public class MovieGenreController {
 	@Autowired
-	private MovieGenreRepository moviegenreRepo;
+	private MovieGenreRepository movieGenreRepo;
 
 	@GetMapping("/")
 	public JsonResponse list(){
 		JsonResponse jr = null;
-		List<MovieGenre> moviegenres = moviegenreRepo.findAll();
-		if (moviegenres.size()>0) {
-			jr = JsonResponse.getInstance(moviegenres);
+		List<MovieGenre> movieGenres = movieGenreRepo.findAll();
+		if (movieGenres.size()>0) {
+			jr = JsonResponse.getInstance(movieGenres);
 
 		}
 		else {
@@ -37,14 +37,14 @@ public class MovieGenreController {
 	@GetMapping("/{id}")
 	public JsonResponse get(@PathVariable int id) {
 		// Expected responses?
-		// 1 - a single moviegenre 
-		// 2 - bad id  - no moviegenre found 
+		// 1 - a single movieGenre 
+		// 2 - bad id  - no movieGenre found 
 		// 3 - Exception?? - hold off for now, implement 
 		//					exception handling as needed 
 		JsonResponse jr = null;
-		Optional<MovieGenre> moviegenre = moviegenreRepo.findById(id);
-		if (moviegenre.isPresent()) {
-			jr = JsonResponse.getInstance(moviegenre.get());
+		Optional<MovieGenre> movieGenre = movieGenreRepo.findById(id);
+		if (movieGenre.isPresent()) {
+			jr = JsonResponse.getInstance(movieGenre.get());
 			
 		}
 		else {
@@ -61,7 +61,7 @@ public class MovieGenreController {
 		
 		
 		try {
-			mg = moviegenreRepo.save(mg);
+			mg = movieGenreRepo.save(mg);
 			jr = JsonResponse.getInstance(mg);
 		} 		catch (DataIntegrityViolationException dive) {
 			jr = JsonResponse.getErrorInstance(dive.getRootCause().getMessage());
@@ -79,7 +79,7 @@ public class MovieGenreController {
 		
 		
 		try {
-			mg = moviegenreRepo.save(mg);
+			mg = movieGenreRepo.save(mg);
 			jr = JsonResponse.getInstance(mg);
 		} catch (Exception e) {
 			jr = JsonResponse.getErrorInstance("Error updating movie genre: " + e.getMessage());
@@ -97,7 +97,7 @@ public class MovieGenreController {
 		
 		
 		try {
-			moviegenreRepo.deleteById(id);
+			movieGenreRepo.deleteById(id);
 			jr = JsonResponse.getInstance("MovieGenre id:  "+id+" deleted successfully.");
 		} catch (Exception e) {
 			jr = JsonResponse.getErrorInstance("Error deleting movie genre: " + e.getMessage());
