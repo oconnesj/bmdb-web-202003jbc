@@ -12,7 +12,7 @@ import com.bmdb.business.JsonResponse;
 import com.bmdb.db.MovieGenreRepository;
 
 @RestController
-@RequestMapping("/movieGenres")
+@RequestMapping("/movie-genres")
 
 public class MovieGenreController {
 	@Autowired
@@ -33,6 +33,23 @@ public class MovieGenreController {
 		
 		return jr;
 	}
+	// Disclaimer - This method may not follow strict API Style Guide rules 
+	@GetMapping("/by-movie-id")
+	public JsonResponse listByMovieID(@RequestParam int movieId){
+		JsonResponse jr = null;
+		List<MovieGenre> movieGenres = movieGenreRepo.findAllByMovieId(movieId);
+		if (movieGenres.size()>0) {
+			jr = JsonResponse.getInstance(movieGenres);
+
+		}
+		else {
+			jr = JsonResponse.getErrorInstance("No movie genres found for movie id: "+movieId+".");
+
+		}
+		
+		return jr;
+	}
+
 	
 	@GetMapping("/{id}")
 	public JsonResponse get(@PathVariable int id) {

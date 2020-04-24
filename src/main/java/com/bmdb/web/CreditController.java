@@ -52,7 +52,22 @@ public class CreditController {
 		}
 		return jr;
 	}
-	
+	@GetMapping("/by-actor-lastname")
+	public JsonResponse listByMovieID(@RequestParam String lastName){
+		JsonResponse jr = null;
+		List<Credit> credits = creditRepo.findAllByActorLastName(lastName);
+		if (credits.size()>0) {
+			jr = JsonResponse.getInstance(credits);
+
+		}
+		else {
+			jr = JsonResponse.getErrorInstance("No actores found for last name "+credits+".");
+
+		}
+		
+		return jr;
+	}
+
 	
 	// create method 
 	@PostMapping("/")
