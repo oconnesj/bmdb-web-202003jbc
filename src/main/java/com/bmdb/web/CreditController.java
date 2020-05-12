@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.bmdb.business.Credit;
 import com.bmdb.business.JsonResponse;
 import com.bmdb.db.CreditRepository;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/credits")
 
