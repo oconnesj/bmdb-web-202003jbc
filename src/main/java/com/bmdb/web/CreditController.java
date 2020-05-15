@@ -34,6 +34,8 @@ public class CreditController {
 		return jr;
 	}
 	
+
+
 	@GetMapping("/{id}")
 	public JsonResponse get(@PathVariable int id) {
 		// Expected responses?
@@ -52,6 +54,39 @@ public class CreditController {
 		}
 		return jr;
 	}
+	
+
+	@GetMapping("/by-actor/{id}")
+	public JsonResponse getAllMoviesForActor(@PathVariable int id) {
+		JsonResponse jr = null;
+		List<Credit> actorCredits = creditRepo.findAllByActorId(id);
+		if (actorCredits.size() > 0) {
+			jr = JsonResponse.getInstance(actorCredits);
+			
+		}
+		else {
+			jr = JsonResponse.getErrorInstance("No actors found for id: "+id);
+		}
+		return jr;
+	}
+	
+	
+	@GetMapping("/by-movie/{id}")
+	// used in movie-detail 
+	public JsonResponse getAllActorsForMovie(@PathVariable int id) {
+		JsonResponse jr = null;
+		List<Credit> movieCredits = creditRepo.findAllByMovieId(id);
+		if (movieCredits.size() > 0) {
+			jr = JsonResponse.getInstance(movieCredits);
+			
+		}
+		else {
+			jr = JsonResponse.getErrorInstance("No actors found for id: "+id);
+		}
+		return jr;
+	}
+	
+	
 	@GetMapping("/by-actor-lastname")
 	public JsonResponse listByMovieID(@RequestParam String lastName){
 		JsonResponse jr = null;

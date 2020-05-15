@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.bmdb.business.MovieGenre;
 import com.bmdb.business.JsonResponse;
 import com.bmdb.db.MovieGenreRepository;
+@CrossOrigin
 
 @RestController
 @RequestMapping("/movie-genres")
@@ -34,16 +35,16 @@ public class MovieGenreController {
 		return jr;
 	}
 	// Disclaimer - This method may not follow strict API Style Guide rules 
-	@GetMapping("/by-movie-id")
-	public JsonResponse listByMovieID(@RequestParam int movieId){
+	@GetMapping("/by-movie-id/{id}")
+	public JsonResponse listByMovieID(@PathVariable int id){
 		JsonResponse jr = null;
-		List<MovieGenre> movieGenres = movieGenreRepo.findAllByMovieId(movieId);
+		List<MovieGenre> movieGenres = movieGenreRepo.findAllByMovieId(id);
 		if (movieGenres.size()>0) {
 			jr = JsonResponse.getInstance(movieGenres);
 
 		}
 		else {
-			jr = JsonResponse.getErrorInstance("No movie genres found for movie id: "+movieId+".");
+			jr = JsonResponse.getErrorInstance("No movie genres found for movie id: "+id+".");
 
 		}
 		

@@ -11,6 +11,10 @@ public interface CreditRepository extends JpaRepository<Credit, Integer> {
 	List<Credit> findAllByActorLastName(String lastName);
 	
 	List<Credit> findAllByActorFirstName(String firstName);
+    List<Credit> findAllByActorId(int actorId);
+
+	List<Credit> findAllByMovieId(int movieid);
+
 
 
 }
